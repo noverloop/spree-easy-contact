@@ -13,7 +13,7 @@
 <div class="adr">
   <h4><%= t("topic") %></h4>
   <p>
-    <%= @contact.topic.name %>
+    <%= @contact.try(:topic).try(:name) %>
   </p>
 </div>
 <% if @contact.order_number %>
