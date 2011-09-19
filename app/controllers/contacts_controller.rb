@@ -11,14 +11,13 @@ class ContactsController < Spree::BaseController
   
   def create
     @contact = Contact.new(params[:contact] || {})
-    respond_to do |format|
-      if @contact.valid? &&  @contact.save
-        ContactMailer.message_email(@contact).deliver
-        format.html { redirect_to(root_path, :notice => t("message_sended")) }
-      else
-        format.html { render :action => "new" }
-      end
+    if @contact.valid? &&  @contact.save
+      ContactMailer.message_email(@contact).deliver
+      redirect_to(root_path, :notice => t("message_sended")) }
+    else
+      render :action => "new"
     end
+    
   end
   
   private
